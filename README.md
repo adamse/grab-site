@@ -1,5 +1,4 @@
-grab-site
-=========
+# grab-site
 
 [![Build status][travis-image]][travis-url]
 
@@ -35,35 +34,11 @@ please [file an issue](https://github.com/ArchiveTeam/grab-site/issues) - thank 
 The installation methods below are the only ones supported in our GitHub issues.
 Please do not modify the installation steps unless you really know what you're
 doing, with both Python packaging and your operating system. grab-site runs
-on a specific version of Python (3.7 or 3.8) and with specific dependency versions.
+on a specific version of Python (3.7+) and with specific dependency versions.
 
-**Contents**
+## Installation Instructions
 
-- [Install on Ubuntu 18.04, 20.04, 22.04, Debian 10 (buster), Debian 11 (bullseye)](#install-on-ubuntu-1804-2004-2204-debian-10-buster-debian-11-bullseye)
-- [Install on NixOS](#install-on-nixos)
-- [Install on another distribution lacking Python 3.7.x or 3.8.x](#install-on-another-distribution-lacking-python-37x-or-38x)
-- [Install on macOS](#install-on-macos)
-- [Install on Windows 10 (experimental)](#install-on-windows-10-experimental)
-- [Upgrade an existing install](#upgrade-an-existing-install)
-- [Usage](#usage)
-  - [`grab-site` options, ordered by importance](#grab-site-options-ordered-by-importance)
-  - [Warnings](#warnings)
-  - [Tips for specific websites](#tips-for-specific-websites)
-- [Changing ignores during the crawl](#changing-ignores-during-the-crawl)
-- [Inspecting the URL queue](#inspecting-the-url-queue)
-- [Preventing a crawl from queuing any more URLs](#preventing-a-crawl-from-queuing-any-more-urls)
-- [Stopping a crawl](#stopping-a-crawl)
-- [Advanced `gs-server` options](#advanced-gs-server-options)
-- [Viewing the content in your WARC archives](#viewing-the-content-in-your-warc-archives)
-- [Inspecting WARC files in the terminal](#inspecting-warc-files-in-the-terminal)
-- [Automatically pausing grab-site processes when free disk is low](#automatically-pausing-grab-site-processes-when-free-disk-is-low)
-- [Thanks](#thanks)
-- [Help](#help)
-
-
-
-Install on Ubuntu 18.04, 20.04, 22.04, Debian 10 (buster), Debian 11 (bullseye)
----
+### Install on Debian and Ubuntu
 
 1.	On Debian, use `su` to become root if `sudo` is not configured to give you access.
 
@@ -99,8 +74,7 @@ Install on Ubuntu 18.04, 20.04, 22.04, Debian 10 (buster), Debian 11 (bullseye)
 	and then restart your shell (e.g. by opening a new terminal tab/window).
 
 
-Install on NixOS
----
+### Install on NixOS
 
 grab-site was removed from nixpkgs master; 23.05 is the last release to contain grab-site.
 
@@ -108,15 +82,13 @@ grab-site was removed from nixpkgs master; 23.05 is the last release to contain 
 nix-env -f https://github.com/NixOS/nixpkgs/archive/release-23.05.tar.gz -iA grab-site
 ```
 
-or, if you are using profiles (ie when you have flakes enabled):
+or, if you are using profiles, i.e., when you have flakes enabled:
 
 ```
 nix profile install nixpkgs/release-22.11#grab-site
 ```
 
-
-Install on another distribution lacking Python 3.7.x or 3.8.x
----
+### Install on another distribution
 
 After installing [uv](https://docs.astral.sh/uv/), you can run
 ```
@@ -124,20 +96,9 @@ uv tool install --python=3.8 --no-binary-package lxml git+https://github.com/Arc
 ```
 
 
-Install on macOS
----
+### Install on macOS
 
-On OS X 10.10 - macOS 11:
-
-1.	Run `locale` in your terminal.  If the output includes "UTF-8", you
-	are all set.  If it does not, your terminal is misconfigured and grab-site
-	will fail to start.  This can be corrected with:
-
-	-	Terminal.app: Preferences... -> Profiles -> Advanced -> **check** Set locale environment variables on startup
-
-	-	iTerm2: Preferences... -> Profiles -> Terminal -> Environment -> **check** Set locale variables automatically
-
-### Using Homebrew (**Intel Mac**)
+#### Using Homebrew (**Intel Mac**)
 
 For M1 Macs, use the next section instead of this one.
 
@@ -147,8 +108,8 @@ For M1 Macs, use the next section instead of this one.
 
 	```
 	brew update
-	brew install python@3.8 libxslt re2 pkg-config
-	/usr/local/opt/python@3.8/bin/python3 -m venv ~/gs-venv
+	brew install python@3 libxslt re2 pkg-config
+	python3 -m venv ~/gs-venv
 	PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig" ~/gs-venv/bin/pip install --no-binary lxml --upgrade git+https://github.com/ArchiveTeam/grab-site
 	```
 
@@ -160,7 +121,7 @@ For M1 Macs, use the next section instead of this one.
 
 	and then restart your shell (e.g. by opening a new terminal tab/window).
 
-### Using Homebrew (**M1 Mac**)
+#### Using Homebrew (**M1 Mac**)
 
 2.	Install Homebrew using the install step on https://brew.sh/
 
@@ -170,8 +131,8 @@ For M1 Macs, use the next section instead of this one.
 
 	```
 	brew update
-	brew install python@3.8 libxslt re2 pkg-config
-	/opt/homebrew/opt/python@3.8/bin/python3 -m venv ~/gs-venv
+	brew install python@3 libxslt re2 pkg-config
+	python3 -m venv ~/gs-venv
 	PKG_CONFIG_PATH="/opt/homebrew/opt/libxml2/lib/pkgconfig" ~/gs-venv/bin/pip install --no-binary lxml --upgrade git+https://github.com/ArchiveTeam/grab-site
 	```
 
@@ -185,8 +146,7 @@ For M1 Macs, use the next section instead of this one.
 
 
 
-Install on Windows 10 (experimental)
----
+### Install on Windows 10 (experimental)
 
 On Windows 10 Fall Creators Update (1703) or newer:
 
@@ -208,8 +168,7 @@ On Windows 10 Fall Creators Update (1703) or newer:
 
 
 
-Upgrade an existing install
----
+### Upgrade an existing install
 
 To update grab-site, simply run the `~/gs-venv/bin/pip install ...` or
 `nix-env ...` command used to install it originally (see above).
@@ -219,8 +178,7 @@ Existing `grab-site` crawls will automatically reconnect to the new server.
 
 
 
-Usage
----
+## Usage
 
 First, start the dashboard with:
 
@@ -518,9 +476,8 @@ while a [from:user](https://twitter.com/search?q=from%3Ainternetarchive&src=typd
 query can return more.
 
 
+## Changing ignores during the crawl
 
-Changing ignores during the crawl
----
 While the crawl is running, you can edit `DIR/ignores` and `DIR/igsets`; the
 changes will be applied within a few seconds.
 
@@ -536,8 +493,8 @@ Note that ignores will not apply to any of the crawl's start URLs.
 
 
 
-Inspecting the URL queue
----
+## Inspecting the URL queue
+
 Inspecting the URL queue is usually not necessary, but may be helpful
 for adding ignores before grab-site crawls a large number of junk URLs.
 
@@ -558,22 +515,22 @@ gs-dump-urls DIR/wpull.db todo | sort | less -S
 
 
 
-Preventing a crawl from queuing any more URLs
----
+## Preventing a crawl from queuing any more URLs
+
 `rm DIR/scrape`.  Responses will no longer be scraped for URLs.  Scraping cannot
 be re-enabled for a crawl.
 
 
 
-Stopping a crawl
----
+## Stopping a crawl
+
 You can `touch DIR/stop` or press ctrl-c, which will do the same.  You will
 have to wait for the current downloads to finish.
 
 
 
-Advanced `gs-server` options
----
+## Advanced `gs-server` options
+
 These environmental variables control what `gs-server` listens on:
 
 *	`GRAB_SITE_INTERFACE` (default `0.0.0.0`)
@@ -586,15 +543,14 @@ These environmental variables control which server each `grab-site` process conn
 
 
 
-Viewing the content in your WARC archives
----
+## Viewing the content in your WARC archives
 
 Try [ReplayWeb.page](https://replayweb.page/) or [webrecorder-player](https://github.com/webrecorder/webrecorder-player).
 
 
 
-Inspecting WARC files in the terminal
----
+## Inspecting WARC files in the terminal
+
 `zless` is a wrapper over `less` that can be used to view raw WARC content:
 
 ```
@@ -609,8 +565,7 @@ However, some servers will send compressed responses anyway.
 
 
 
-Automatically pausing grab-site processes when free disk is low
----
+## Automatically pausing grab-site processes when free disk is low
 
 If you automatically upload and remove finished .warc.gz files, you can still
 run into a situation where grab-site processes fill up your disk faster than
@@ -621,8 +576,7 @@ crosses a threshold value.
 
 
 
-Thanks
----
+## Thanks
 
 grab-site is made possible only because of [wpull](https://github.com/chfoo/wpull),
 written by [Christopher Foo](https://github.com/chfoo) who spent a year
@@ -651,8 +605,8 @@ in various browsers.
 
 
 
-Help
----
+## Support
+
 grab-site bugs and questions are welcome in
 [grab-site/issues](https://github.com/ArchiveTeam/grab-site/issues).
 
