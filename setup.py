@@ -12,7 +12,7 @@ import libgrabsite
 
 install_requires = [
     "click>=8.0.0",
-    "wpull @ https://github.com/ArchiveTeam/ludios_wpull/archive/refs/tags/5.0.3.zip",
+    "wpull @ https://github.com/ArchiveTeam/ludios_wpull/archive/refs/tags/5.0.4.zip",
     "lmdb>=1.7.0",
     "autobahn>=20.0.0",
     "google-re2>=1.1.0",
