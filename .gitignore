@@ -1,1 +1,5 @@
 __pycache__
+.DS_Store
+ludios_wpull-5.0.4/build/ 
+lxml-6.0.2/build
+tibonihoo-yapsy-6b487b0/package/build/

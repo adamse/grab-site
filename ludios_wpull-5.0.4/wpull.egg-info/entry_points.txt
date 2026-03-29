@@ -1,0 +1,3 @@
+[console_scripts]
+wpull = wpull.application.main:main
+wpull5 = wpull.application.main:main
