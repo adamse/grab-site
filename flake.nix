@@ -14,6 +14,8 @@
             pkgs.uv
             pkgs.pkg-config
             pkgs.libxml2
+            pkgs.libxslt
+            pkgs.zlib
           ];
         };
       });

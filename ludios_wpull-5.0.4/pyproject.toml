@@ -78,6 +78,7 @@ wpull5 = "wpull.application.main:main"
 
 [tool.uv.sources]
 yapsy = { path = "../tibonihoo-yapsy-6b487b0/package" }
+lxml = { path = "../lxml-6.0.2" }
 
 [tool.coverage.run]
 omit = [

@@ -36,6 +36,7 @@ gs-dump-urls = "libgrabsite.dump_urls:main"
 [tool.uv.sources]
 wpull = { path = "ludios_wpull-5.0.4" }
 yapsy = { path = "tibonihoo-yapsy-6b487b0/package" }
+lxml = { path = "lxml-6.0.2" }
 
 [tool.setuptools.packages.find]
 include = ["libgrabsite"]

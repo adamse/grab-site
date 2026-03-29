@@ -10,6 +10,7 @@ TODO.txt
 buildlibxml.py
 pyproject.toml
 requirements.txt
+setup.cfg
 setup.py
 setupinfo.py
 test.py
