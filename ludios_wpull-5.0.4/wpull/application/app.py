@@ -88,7 +88,10 @@ class Application(HookableMixin):
             ))
             return
 
-        event_loop = asyncio.get_event_loop()
+        try:
+            event_loop = asyncio.get_running_loop()
+        except RuntimeError:
+            event_loop = asyncio.get_event_loop_policy().get_event_loop()
         graceful_called = False
 
         def graceful_stop_callback():
@@ -129,13 +132,16 @@ class Application(HookableMixin):
         Returns:
             int: The exit status.
         '''
-        exit_status = asyncio.get_event_loop().run_until_complete(self.run())
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        exit_status = loop.run_until_complete(self.run())
 
         # The following loop close procedure should avoid deadlock while
         # allowing all callbacks to process before close()
-        asyncio.get_event_loop().stop()
-        asyncio.get_event_loop().run_forever()
-        asyncio.get_event_loop().close()
+        loop.stop()
+        loop.run_forever()
+        loop.close()
         return exit_status
 
     
